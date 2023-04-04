@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-// import HighLightWords from '../dist/index'
+import React from 'react'
 import HighLightWords from '../src/index'
 import { useState } from 'react'
 
@@ -7,7 +6,6 @@ const Example = () => {
   const [words, setWords] = useState('')
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWords(e.currentTarget.value)
-    console.log(words);
   }
   return (
     <div>

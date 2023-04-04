@@ -2,10 +2,11 @@
   "name": "react-highlight-keywords",
   "version": "0.0.1",
   "description": "",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "keywords": [],
@@ -19,11 +20,9 @@
   "homepage": "",
   "bugs": "",
   "scripts": {
-    "prepublish": "npm run test && npm run build",
-    "build": "rimraf dist dist && npm run build:types && npm run build:js",
+    "build": "rimraf dist dist && npm run build:types && npm run build:js && cp ./src/index.css dist/index.css",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir dist --extensions \".tsx\" --ignore \"**/*.test.tsx\" --source-maps inline",
-    "build:bundle": "webpack-cli --config ./webpack.config.js --mode production",
+    "build:js": "babel src --out-dir dist --extensions \".tsx\"",
     "start": "webpack-dev-server --config ./example/webpack.config.js --mode development --open --hot",
     "test": "c8 ava",
     "prepublishOnly": "npm run build",

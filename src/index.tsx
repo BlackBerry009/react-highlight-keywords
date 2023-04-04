@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren, useEffect, useMemo, useRef } from 'react'
 import './index.css'
 
 interface Props {
@@ -9,10 +9,10 @@ export default function HighlightWords({
   words,
   children,
 }: PropsWithChildren<Props>) {
-  useEffect(() => {
-    const highlightElement = document.getElementById(
-      'highlight-container'
-    ) as HTMLDivElement
+  const ref = useRef(null);
+  const textNodes = useMemo(() => {
+    const highlightElement = ref.current;
+    if(!highlightElement) {return[]}
     const treeWalker = document.createTreeWalker(
       highlightElement,
       NodeFilter.SHOW_TEXT
@@ -23,7 +23,9 @@ export default function HighlightWords({
       allTextNodes.push(currentNode)
       currentNode = treeWalker.nextNode()
     }
-
+    return allTextNodes
+  }, [ref.current])
+  useEffect(() => {
     if (!(CSS as any).highlights) {
       console.log('CSS Custom Highlight API not supported.')
       return
@@ -31,7 +33,9 @@ export default function HighlightWords({
 
     ;(CSS as any).highlights.clear()
 
-    const ranges = allTextNodes
+    if (!words) return
+
+    const ranges = textNodes
       .map((el) => {
         return { el, text: el.textContent }
       })
@@ -54,9 +58,9 @@ export default function HighlightWords({
       })
     // @ts-ignore
     const searchResultsHighlight = new Highlight(...ranges.flat()) // @ts-ignore
-    window.s = searchResultsHighlight;
+    window.s = searchResultsHighlight
     ;(CSS as any).highlights.set('results', searchResultsHighlight)
   }, [words])
 
-  return <div id="highlight-container">{children}</div>
+  return <div ref={ref}>{children}</div>
 }

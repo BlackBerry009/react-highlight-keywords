@@ -1,8 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
 module.exports = {
     entry: path.join(__dirname),
@@ -20,15 +18,7 @@ module.exports = {
                     enforce: true
                 }
             }
-        },
-        minimizer: [
-            new UglifyJsPlugin({
-                exclude: /\.html/,
-                parallel: true,
-                sourceMap: true
-            }),
-            new OptimizeCSSAssetsPlugin({})
-        ]
+        }
     },
     module: {
         rules: [
