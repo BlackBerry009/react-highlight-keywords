@@ -2,7 +2,6 @@
   "name": "react-highlight-keywords",
   "version": "0.0.1",
   "description": "",
-  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -21,7 +20,11 @@
   "bugs": "",
   "scripts": {
     "prepublish": "npm run test && npm run build",
-    "build": "tsc",
+    "build": "rimraf dist dist && npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir dist --extensions \".tsx\" --ignore \"**/*.test.tsx\" --source-maps inline",
+    "build:bundle": "webpack-cli --config ./webpack.config.js --mode production",
+    "start": "webpack-dev-server --config ./example/webpack.config.js --mode development --open --hot",
     "test": "c8 ava",
     "prepublishOnly": "npm run build",
     "commit": "git-cz",
@@ -31,16 +34,33 @@
     "release:patch": "standard-version --release-as patch"
   },
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.21.4",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.31",
     "ava": "^5.2.0",
+    "babel-loader": "^9.1.2",
     "c8": "^7.13.0",
+    "css-loader": "^6.7.3",
     "git-cz": "^4.9.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.7.5",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^4.4.1",
     "rome": "12.0.0",
     "standard-version": "^9.5.0",
+    "style-loader": "^3.3.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^5.77.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.13.2"
   },
   "c8": {
     "reporter": [

@@ -1,4 +1,3 @@
-#highlight-container {
-    background-color: var(--hl-bg-color);
-    color: var(--hl-color);
+::highlight(results) {
+    background-color: yellow;
 }

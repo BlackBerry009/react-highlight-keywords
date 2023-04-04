@@ -1,26 +1,14 @@
-import { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
+import './index.css'
 
 interface Props {
-  hlColor: string
-  hlBgColor: string
   words: string
 }
 
 export default function HighlightWords({
-  hlColor,
-  hlBgColor,
   words,
   children,
 }: PropsWithChildren<Props>) {
-  useEffect(() => {
-    const highlightElement = document.getElementById(
-      'highlight-container'
-    ) as HTMLDivElement
-
-    highlightElement.style.setProperty('--hl-bg-color', hlColor)
-    highlightElement.style.setProperty('--hl-color', hlColor)
-  }, [hlColor, hlBgColor])
-
   useEffect(() => {
     const highlightElement = document.getElementById(
       'highlight-container'
@@ -66,7 +54,8 @@ export default function HighlightWords({
       })
     // @ts-ignore
     const searchResultsHighlight = new Highlight(...ranges.flat()) // @ts-ignore
-    ;(CSS as any).highlights.set('search-results', searchResultsHighlight)
+    window.s = searchResultsHighlight;
+    ;(CSS as any).highlights.set('results', searchResultsHighlight)
   }, [words])
 
   return <div id="highlight-container">{children}</div>
