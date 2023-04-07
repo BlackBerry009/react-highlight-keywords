@@ -1,5 +1,6 @@
 import React from 'react'
-import HighLightWords from '../src/index'
+// import HighLightWords from '../src/index'
+import HighLightWords from '../dist/esm/index'
 import { useState } from 'react'
 
 const Example = () => {

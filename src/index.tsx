@@ -11,6 +11,7 @@ export default function HighlightWords({
 }: PropsWithChildren<Props>) {
   const ref = useRef(null);
   const textNodes = useMemo(() => {
+    console.log('sss');
     const highlightElement = ref.current;
     if(!highlightElement) {return[]}
     const treeWalker = document.createTreeWalker(
@@ -25,6 +26,7 @@ export default function HighlightWords({
     }
     return allTextNodes
   }, [ref.current])
+  
   useEffect(() => {
     if (!(CSS as any).highlights) {
       console.log('CSS Custom Highlight API not supported.')
