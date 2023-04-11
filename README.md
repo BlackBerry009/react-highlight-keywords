@@ -7,8 +7,7 @@ React highlight words component using highlight API
 ```jsx
 import Highlight from 'react-highlight-keywords'
 
-<Highlight
-  words='hello'
-  highlightStyle={{ color: 'red', backgroundColor: 'yellow' }}
+<Highlight words='hello'>
+  hello world!
 </Highlight>
 ```

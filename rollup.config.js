@@ -4,7 +4,6 @@ import external from 'rollup-plugin-peer-deps-external'
 import del from 'rollup-plugin-delete'
 import url from '@rollup/plugin-url'
 import postcss from 'rollup-plugin-postcss'
-import autoprefixer from 'autoprefixer'
 import { DEFAULT_EXTENSIONS } from '@babel/core'
 import pkg from './package.json' assert { type: 'json' }
 import path from 'path'
@@ -34,16 +33,8 @@ function getCommonConfig(file) {
     plugins: [
       external(),
       url(),
-      postcss({
-        extract: true,
-        plugins: [autoprefixer()],
-      }),
-      typescript({
-        tsconfigOverride: {
-          include: ['src', 'types.d.ts'],
-          exclude: ['**/__tests__', '**/tests'],
-        },
-      }),
+      postcss(),
+      typescript(),
       babel({
         exclude: 'node_modules/**',
         babelHelpers: 'runtime',

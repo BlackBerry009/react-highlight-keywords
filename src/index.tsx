@@ -11,7 +11,6 @@ export default function HighlightWords({
 }: PropsWithChildren<Props>) {
   const ref = useRef(null);
   const textNodes = useMemo(() => {
-    console.log('sss');
     const highlightElement = ref.current;
     if(!highlightElement) {return[]}
     const treeWalker = document.createTreeWalker(
